@@ -38,6 +38,21 @@ class Board:
                 nums [pos] = 0
                 pos -= 1
         return nums
+    
+    def slideLeft (self):
+        for a in range (len (self.values)):
+            self.values [a] = self.slide (self.values [a])
+    def slideRight (self):
+        for a in range (len (self.values)):
+            self.values [a] = reverse (self.slide (reverse (self.values [a])))
+    def slideUp (self):
+        self.values = transpose (self.values)
+        self.slideLeft ()
+        self.values = transpose (self.values)
+    def slideDown (self):
+        self.values = transpose (self.values)
+        self.slideRight ()
+        self.values = transpose (self.values)
 
     def __str__ (self):
         r = ''
@@ -47,6 +62,21 @@ class Board:
             r += '\n'
         return r
 
+def reverse (l):
+    return [l [len (l) - a - 1] for a in range (len (l))]
+
+def transpose (l):
+    r = []
+    for a in range (len (l [0])):
+        tmp = []
+        for b in range (len (l)):
+            tmp += [l [b][a]]
+        r += [tmp]
+    return r
 
 board = Board ()
-print board.slide ([0, 2, 2, 0])
+print board
+board.slideRight ()
+print board
+board.slideUp ()
+print board 

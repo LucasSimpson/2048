@@ -1,4 +1,7 @@
-import random
+import random, math
+from colorama import *
+from colorama import Fore
+init()
 
 class Board:
     #--y--
@@ -12,6 +15,7 @@ class Board:
         else:
             self.values = vals
             self.score = score
+        self.colorConstants = [Fore.BLACK, Fore.MAGENTA, Fore.RED, Fore.BLUE, Fore.CYAN, Fore.GREEN, Fore.YELLOW, Fore.WHITE]
 
     def reset (self):
         self.values = [[0 for b in range (4)] for a in range (4)]
@@ -72,7 +76,12 @@ class Board:
         r = 'Score: ' + str (self.score) + '\n'
         for a in self.values:
             for b in a:
-                r += str (b) + '\t'
+#                r += str (b) + '\t'
+                clr = Fore.BLACK
+                if b != 0:
+                    k = int (math.log (b, 2) - 1) % 6
+                    clr = self.colorConstants [k]
+                r += clr + str (b) + '\t'
             r += '\n'
         return r
 
@@ -86,7 +95,8 @@ def transpose (l):
         for b in range (len (l)):
             tmp += [l [b][a]]
         r += [tmp]
-    return r
+    return 
+
 
 board = Board ()
 while (True):
@@ -96,4 +106,3 @@ while (True):
         break
     else:
         board.processMoveRequest (move)
-

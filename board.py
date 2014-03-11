@@ -71,6 +71,11 @@ class Board:
             elif move == 'd':
                 self.slideRight ()
             self.addRandomTwo ()
+        return self.copy ()
+
+    def copy (self):
+        vals = [[b for b in a] for a in self.values]
+        return Board (vals, self.score)
         
     def __str__ (self):
         r = 'Score: ' + str (self.score) + '\n'
@@ -105,4 +110,4 @@ while (True):
     if move == 'q':
         break
     else:
-        board.processMoveRequest (move)
+        board = board.processMoveRequest (move)

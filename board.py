@@ -37,10 +37,14 @@ class Board:
                 if a == nums [-1]:
                     nums [-1] *= 2
                     self.score += nums [-1]
-                    self.hasChanged = True
                 else:
                     nums += [a]
-        return nums[1:] + [0 for a in range (4 - len (nums) + 1)]
+        nums = nums [1:]
+        for a in range (len (nums)):
+            if nums [a] != nums_ [a]:
+                self.hasChanged = True
+                break
+        return nums + [0 for a in range (4 - len (nums))]
 
     def slideLeft (self):
         for a in range (len (self.values)):
@@ -69,10 +73,16 @@ class Board:
                 self.slideDown ()
             elif move == 'd':
                 self.slideRight ()
+            print self.hasChanged
             if self.hasChanged:
                 self.addRandomTwo ()
                 self.hasChanged = False
-        
+            return self.copy ()
+
+    def copy (self):
+        vals = [[b for b in a] for a in self.values]
+        return Board (vals, self.score)
+
     def possibleMovesExist (self):
         for a in range (len (self.values)):
             for b in range (len (self.values [a]) - 1):
@@ -114,5 +124,5 @@ while (True):
     if move == 'q':
         break
     else:
-        board.processMoveRequest (move)
+        board = board.processMoveRequest (move)
 

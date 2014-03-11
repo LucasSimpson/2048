@@ -12,6 +12,7 @@ class Board:
         else:
             self.values = vals
             self.score = score
+        self.hasChanged = False
 
     def reset (self):
         self.values = [[0 for b in range (4)] for a in range (4)]
@@ -25,8 +26,9 @@ class Board:
             for b in range (len (self.values [a])):
                 if self.values [a][b] == 0:
                     valid += [[a,b]]
-        key = random.randint (0, len (valid) - 1)
-        self.values [valid [key][0]] [valid [key][1]] = 2
+        if len (valid) > 0:
+            key = random.randint (0, len (valid) - 1)
+            self.values [valid [key][0]] [valid [key][1]] = 2
 
     def slide (self, nums_):
         nums = [0]
@@ -35,6 +37,7 @@ class Board:
                 if a == nums [-1]:
                     nums [-1] *= 2
                     self.score += nums [-1]
+                    self.hasChanged = True
                 else:
                     nums += [a]
         return nums[1:] + [0 for a in range (4 - len (nums) + 1)]
@@ -66,8 +69,21 @@ class Board:
                 self.slideDown ()
             elif move == 'd':
                 self.slideRight ()
-            self.addRandomTwo ()
+            if self.hasChanged:
+                self.addRandomTwo ()
+                self.hasChanged = False
         
+    def possibleMovesExist (self):
+        for a in range (len (self.values)):
+            for b in range (len (self.values [a]) - 1):
+                if self.values [a][b] == 0 or self.values [a][b] == self.values [a][b + 1]:
+                    return True
+        for a in range (len (self.values [0])):
+            for b in range (len (self.values [a]) - 1):
+                if self.values [b][a] == self.values [b + 1][a]:
+                    return True
+        return False
+
     def __str__ (self):
         r = 'Score: ' + str (self.score) + '\n'
         for a in self.values:
@@ -91,6 +107,9 @@ def transpose (l):
 board = Board ()
 while (True):
     print board
+    if board.possibleMovesExist () == False:
+        print "Game Over. Final score is " + str (board.score)
+        break
     move = raw_input ("wasd to slide up/left/down/right, and q to quit: ")
     if move == 'q':
         break

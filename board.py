@@ -64,6 +64,7 @@ class Board:
     def processMoveRequest (self, move):
         if not (move == 'w' or move == 'a' or move == 's' or move == 'd'):
             print 'Invalid move request'
+            return self
         else:
             if move == 'w':
                 self.slideUp ()
@@ -73,7 +74,6 @@ class Board:
                 self.slideDown ()
             elif move == 'd':
                 self.slideRight ()
-            print self.hasChanged
             if self.hasChanged:
                 self.addRandomTwo ()
                 self.hasChanged = False
@@ -114,15 +114,4 @@ def transpose (l):
         r += [tmp]
     return r
 
-board = Board ()
-while (True):
-    print board
-    if board.possibleMovesExist () == False:
-        print "Game Over. Final score is " + str (board.score)
-        break
-    move = raw_input ("wasd to slide up/left/down/right, and q to quit: ")
-    if move == 'q':
-        break
-    else:
-        board = board.processMoveRequest (move)
 

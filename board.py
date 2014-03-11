@@ -24,21 +24,15 @@ class Board:
         self.values [valid [key][0]] [valid [key][1]] = 2
 
     def slide (self, nums_):
-        nums = [a for a in nums_]
-        for a in range (len (nums) - 1):
-            if nums [a] == nums [a+1]:
-                nums [a+1] = 0
-                nums [a] *= 2
-        for a in range (1, len (nums)):
-            pos = a
-            while (nums [pos] != 0):
-                if pos == 0 or nums [pos - 1] != 0:
-                    break
-                nums [pos - 1] = nums [pos]
-                nums [pos] = 0
-                pos -= 1
-        return nums
-    
+        nums = [0]
+        for a in nums_:
+            if a != 0:
+                if a == nums [-1]:
+                    nums [-1] *= 2
+                else:
+                    nums += [a]
+        return nums[1:] + [0 for a in range (4 - len (nums) + 1)]
+
     def slideLeft (self):
         for a in range (len (self.values)):
             self.values [a] = self.slide (self.values [a])

@@ -1,2 +1,4 @@
 This is a clone of gabrielecirulli's 2048 https://github.com/gabrielecirulli/2048
-Small fun project, going to see if I can implement so AI of some sort.
+Small fun project, you can either play, watch the computer play it, or get the computer to run it however many times you like and see some stats about how well it does. 
+
+For comparison, my highest score ever was 5404 after about 90 minutes of playing this, and the computers highest score out of ~200 simulations is 16996. Still didn't manage to get the 2048 block though!

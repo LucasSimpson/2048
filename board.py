@@ -12,7 +12,6 @@ class Board:
         else:
             self.values = vals
             self.score = score
-        self.hasChanged = False
 
     def reset (self):
         self.values = [[0 for b in range (4)] for a in range (4)]
@@ -42,7 +41,6 @@ class Board:
         nums = nums [1:]
         for a in range (len (nums)):
             if nums [a] != nums_ [a]:
-                self.hasChanged = True
                 break
         return nums + [0 for a in range (4 - len (nums))]
 
@@ -66,18 +64,17 @@ class Board:
             print 'Invalid move request'
             return self
         else:
+            copy = self.copy ()
             if move == 'w':
-                self.slideUp ()
+                copy.slideUp ()
             elif move == 'a':
-                self.slideLeft ()
+                copy.slideLeft ()
             elif move == 's':
-                self.slideDown ()
+                copy.slideDown ()
             elif move == 'd':
-                self.slideRight ()
-            if self.hasChanged:
-                self.addRandomTwo ()
-                self.hasChanged = False
-            return self.copy ()
+                copy.slideRight ()
+            copy.addRandomTwo ()
+            return copy
 
     def copy (self):
         vals = [[b for b in a] for a in self.values]

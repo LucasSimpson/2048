@@ -14,7 +14,7 @@ def main ():
                 break
             elif move == 'c':
                 gameBoard = randomMove (gameBoard)
-            elif move == 's':
+            elif move == 'g':
                 gameBoard = smartMove (gameBoard, 3)
             else:
                 gameBoard = gameBoard.processMoveRequest (move)
@@ -59,7 +59,7 @@ def main ():
         print 'Played ' + str (numgames) + ' games. Average score = ' + str (total * 1.0 / numgames)
         print 'Highest score is ' + str (highest)
         print 'Lowest score is ' + str (lowest)
-        print 'Highest scoring board: '
+        print '\nHighest scoring board: '
         print highestBoard
 
 def randomMove (gameBoard):

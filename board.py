@@ -75,22 +75,13 @@ class Board:
             elif move == 's':
                 copy.slideDown ()
             elif move == 'd':
-<<<<<<< HEAD
-                self.slideRight ()
-            self.addRandomTwo ()
-        return self.copy ()
-=======
                 copy.slideRight ()
             copy.addRandomTwo ()
             return copy
->>>>>>> noColorsCanPlay
 
     def copy (self):
         vals = [[b for b in a] for a in self.values]
         return Board (vals, self.score)
-<<<<<<< HEAD
-        
-=======
 
     def possibleMovesExist (self):
         for a in range (len (self.values)):
@@ -103,14 +94,13 @@ class Board:
                     return True
         return False
 
->>>>>>> noColorsCanPlay
     def __str__ (self):
         r = 'Score: ' + str (self.score) + '\n'
         for a in self.values:
             for b in a:
                 clr = Fore.BLACK
                 if b != 0:
-                    k = int (math.log (b, 2))
+                    k = int (math.log (b, 2)) % 8
                     clr = self.colorConstants [k]
                 r += Style.BRIGHT + clr + str (b) + '\t'
             r += '\n'
@@ -127,16 +117,3 @@ def transpose (l):
             tmp += [l [b][a]]
         r += [tmp]
     return r
-
-
-<<<<<<< HEAD
-board = Board ()
-while (True):
-    print board
-    move = raw_input ("wasd to slide up/left/down/right, and q to quit: ")
-    if move == 'q':
-        break
-    else:
-        board = board.processMoveRequest (move)
-=======
->>>>>>> noColorsCanPlay

@@ -1,7 +1,6 @@
 import random, math
 from colorama import *
-from colorama import Fore
-init()
+init(autoreset=True)
 
 class Board:
     #--y--
@@ -81,12 +80,11 @@ class Board:
         r = 'Score: ' + str (self.score) + '\n'
         for a in self.values:
             for b in a:
-#                r += str (b) + '\t'
                 clr = Fore.BLACK
                 if b != 0:
-                    k = int (math.log (b, 2) - 1) % 6
+                    k = int (math.log (b, 2))
                     clr = self.colorConstants [k]
-                r += clr + str (b) + '\t'
+                r += Style.BRIGHT + clr + str (b) + '\t'
             r += '\n'
         return r
 
@@ -100,7 +98,7 @@ def transpose (l):
         for b in range (len (l)):
             tmp += [l [b][a]]
         r += [tmp]
-    return 
+    return r
 
 
 board = Board ()

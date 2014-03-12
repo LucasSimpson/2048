@@ -28,8 +28,9 @@ class Board:
             for b in range (len (self.values [a])):
                 if self.values [a][b] == 0:
                     valid += [[a,b]]
-        key = random.randint (0, len (valid) - 1)
-        self.values [valid [key][0]] [valid [key][1]] = 2
+        if len (valid) > 0:
+            key = random.randint (0, len (valid) - 1)
+            self.values [valid [key][0]] [valid [key][1]] = 2
 
     def slide (self, nums_):
         nums = [0]
@@ -40,7 +41,11 @@ class Board:
                     self.score += nums [-1]
                 else:
                     nums += [a]
-        return nums[1:] + [0 for a in range (4 - len (nums) + 1)]
+        nums = nums [1:]
+        for a in range (len (nums)):
+            if nums [a] != nums_ [a]:
+                break
+        return nums + [0 for a in range (4 - len (nums))]
 
     def slideLeft (self):
         for a in range (len (self.values)):
@@ -60,22 +65,45 @@ class Board:
     def processMoveRequest (self, move):
         if not (move == 'w' or move == 'a' or move == 's' or move == 'd'):
             print 'Invalid move request'
+            return self
         else:
+            copy = self.copy ()
             if move == 'w':
-                self.slideUp ()
+                copy.slideUp ()
             elif move == 'a':
-                self.slideLeft ()
+                copy.slideLeft ()
             elif move == 's':
-                self.slideDown ()
+                copy.slideDown ()
             elif move == 'd':
+<<<<<<< HEAD
                 self.slideRight ()
             self.addRandomTwo ()
         return self.copy ()
+=======
+                copy.slideRight ()
+            copy.addRandomTwo ()
+            return copy
+>>>>>>> noColorsCanPlay
 
     def copy (self):
         vals = [[b for b in a] for a in self.values]
         return Board (vals, self.score)
+<<<<<<< HEAD
         
+=======
+
+    def possibleMovesExist (self):
+        for a in range (len (self.values)):
+            for b in range (len (self.values [a]) - 1):
+                if self.values [a][b] == 0 or self.values [a][b] == self.values [a][b + 1]:
+                    return True
+        for a in range (len (self.values [0])):
+            for b in range (len (self.values [a]) - 1):
+                if self.values [b][a] == self.values [b + 1][a]:
+                    return True
+        return False
+
+>>>>>>> noColorsCanPlay
     def __str__ (self):
         r = 'Score: ' + str (self.score) + '\n'
         for a in self.values:
@@ -101,6 +129,7 @@ def transpose (l):
     return r
 
 
+<<<<<<< HEAD
 board = Board ()
 while (True):
     print board
@@ -109,3 +138,5 @@ while (True):
         break
     else:
         board = board.processMoveRequest (move)
+=======
+>>>>>>> noColorsCanPlay

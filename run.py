@@ -85,11 +85,11 @@ def randomGame (gameBoard):
 def smartMove (gameBoard, numAhead):
     if numAhead != 0 and gameBoard.possibleMovesExist ():
         u = smartMove (gameBoard.processMoveRequest ('w'), numAhead - 1)
-        l = smartMove (gameBoard.processMoveRequest ('a'), numAhead - 1)
+        #l = smartMove (gameBoard.processMoveRequest ('a'), numAhead - 1)
         d = smartMove (gameBoard.processMoveRequest ('s'), numAhead - 1)
         r = smartMove (gameBoard.processMoveRequest ('d'), numAhead - 1)
-        boards = [u, l, d, r]
-        moves = ['w', 'a', 's', 'd']
+        boards = [u, d, r] #boards = [u, l, d, r]
+        moves = ['w', 's', 'd'] #moves = ['w', 'a', 's', 'd']
         highest = boards [0].score
         hID = 0
         for a in range (1, len (boards)):

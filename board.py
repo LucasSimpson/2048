@@ -1,5 +1,6 @@
 import random, math
 from colorama import *
+
 init(autoreset=True)
 
 class Board:

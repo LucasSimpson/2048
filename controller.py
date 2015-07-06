@@ -60,8 +60,7 @@ class Controller (object):
 				#print score
 			scores += [score]
 
-		#self.evaluation = 1.0 * sum (scores) / len (scores)
-		self.evaluation = max (scores)
+		self.evaluation = 1.0 * sum (scores) / len (scores)
 		return self.evaluation
 
 	def __int__ (self):
@@ -86,9 +85,9 @@ class Controller2048 (Controller):
 		self.board = self.board.processMoveRequest (move)
 
 		if visual:
-			print str (outputs) + ' -> ' + move
+			print move + ' <- ' + str (outputs)
 			print self.board
-			time.sleep (0.7)
+			time.sleep (0.5)
 
 	def reset (self):
 		super (Controller2048, self).reset ()

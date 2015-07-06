@@ -36,9 +36,12 @@ class NeuralNetwork (object):
 		l1 = self.layers
 		l2 = other.layers
 		new_layers = []
+		mask = vectorize (lambda x: x * (1 + 0.01 * (random.random (1) [0] - 0.5)))
 
 		for a in range (len (l1)):
-			tmp = add (l1 [a], l2 [a]) / 2.0
+			
+			tmp = mask (add (l1 [a], l2 [a]) / 2.0)
+
 			new_layers += [tmp]
 
 		return NeuralNetwork (new_layers)

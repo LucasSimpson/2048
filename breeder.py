@@ -26,9 +26,8 @@ class Breeder (object):
 	def procreate (self):
 		alpha = self.population [-1]
 		self.population = self.population [:-1]
-		self.population += [self.make_random ()]
 
-		new_offspring = []
+		new_offspring = [alpha, alpha.merge (self.make_random ())]
 		for parent in self.population:
 			new_offspring += [alpha.merge (parent)]
 

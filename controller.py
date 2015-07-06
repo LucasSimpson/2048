@@ -54,9 +54,14 @@ class Controller (object):
 
 		scores = []
 		for a in range (10):
-			scores += [self.run_once ()]
+			score = self.run_once ()
+			if score > 272:
+				pass
+				#print score
+			scores += [score]
 
-		self.evaluation = 1.0 * sum (scores) / len (scores)
+		#self.evaluation = 1.0 * sum (scores) / len (scores)
+		self.evaluation = max (scores)
 		return self.evaluation
 
 	def __int__ (self):

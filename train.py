@@ -6,8 +6,8 @@ from breeder import Breeder
 from numpy import * 
 
 
-breeder = Breeder (100, Controller2048, sizes=[16, 64, 4])
+breeder = Breeder (1000, Controller2048, sizes=[16, 128, 128, 128, 4])
 
-top_dawg = breeder.breed (20)
+top_dawg = breeder.breed (40)
 
 top_dawg.run_once (visual=True)

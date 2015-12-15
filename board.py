@@ -10,12 +10,13 @@ class Board:
     #-
     #-
     def __init__ (self, vals = None, score = None):
+        self.score = 0
+        self.colorConstants = [Fore.BLACK, Fore.MAGENTA, Fore.RED, Fore.BLUE, Fore.CYAN, Fore.GREEN, Fore.YELLOW, Fore.WHITE]
         if vals == None:
             self.reset ()
         else:
             self.values = vals
             self.score = score
-        self.colorConstants = [Fore.BLACK, Fore.MAGENTA, Fore.RED, Fore.BLUE, Fore.CYAN, Fore.GREEN, Fore.YELLOW, Fore.WHITE]
 
     def reset (self):
         self.values = [[0 for b in range (4)] for a in range (4)]
@@ -29,9 +30,16 @@ class Board:
             for b in range (len (self.values [a])):
                 if self.values [a][b] == 0:
                     valid += [[a,b]]
+
+        if random.random () <= 0.1:
+            t = 4
+        else:
+            t = 2
+
         if len (valid) > 0:
             key = random.randint (0, len (valid) - 1)
-            self.values [valid [key][0]] [valid [key][1]] = 2
+            self.values [valid [key][0]] [valid [key][1]] = t
+
 
     def slide (self, nums_):
         nums = [0]

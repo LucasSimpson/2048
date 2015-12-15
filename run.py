@@ -1,5 +1,7 @@
 import board, random
 
+import matplotlib.pyplot as plt
+
 def main ():
     gameBoard = board.Board ()
     mode = raw_input ("h for human, rc for random computer game, rcs for stats, sc for smart game, or scs for stats ")
@@ -47,6 +49,9 @@ def main ():
         lowest = 99999
         highest = 0
         highestBoard = None
+
+        scores = []
+
         for a in range (numgames):
             print 'simulating ' + str (a + 1) + ' out of ' + str (numgames)
             gb = smartGame (gameBoard)
@@ -56,11 +61,19 @@ def main ():
                 highestBoard = gb
             if gb.score < lowest:
                 lowest = gb.score
+            
+            scores += [gb.score]
+
         print 'Played ' + str (numgames) + ' games. Average score = ' + str (total * 1.0 / numgames)
         print 'Highest score is ' + str (highest)
         print 'Lowest score is ' + str (lowest)
         print '\nHighest scoring board: '
         print highestBoard
+
+        plt.hist (scores, bins=50)
+        plt.xlabel ('Score')
+        plt.ylabel ('Trials')
+        plt.show ()
 
 def randomMove (gameBoard):
     mID = random.randint (0, 3)
@@ -88,8 +101,10 @@ def smartMove (gameBoard, numAhead):
         #l = smartMove (gameBoard.processMoveRequest ('a'), numAhead - 1)
         d = smartMove (gameBoard.processMoveRequest ('s'), numAhead - 1)
         r = smartMove (gameBoard.processMoveRequest ('d'), numAhead - 1)
-        boards = [u, d, r] #boards = [u, l, d, r]
-        moves = ['w', 's', 'd'] #moves = ['w', 'a', 's', 'd']
+        boards = [u, d, r] 
+        #boards = [u, l, d, r]
+        moves = ['w', 's', 'd'] 
+        #moves = ['w', 'a', 's', 'd']
         highest = boards [0].score
         hID = 0
         for a in range (1, len (boards)):
@@ -109,8 +124,12 @@ def smartGame (gameBoard):
         if gameBoard.possibleMovesExist () == False:
             break
         else:
-            gameBoard = smartMove (gameBoard, 3)
+            gameBoard = smartMove (gameBoard, 2)
     return gameBoard
     
 
 main ()
+
+
+
+
